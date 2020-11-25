@@ -1,8 +1,17 @@
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
+    "/index.js",
     "/db.js",
-    "/style.css"
+    "/manifest.json",
+    "/styles.css",
+    "/favicon.ico",
+    "/icons/icon-96x96.png",
+    "/icons/icon-128x128.png",
+    "/icons/icon-192x192.png",
+    "/icons/icon-256x256.png",
+    "/icons/icon-384x384.png",
+    "/icons/icon-512x512.png"
 ];
 
 const CACHE_NAME = "static-cache-v1";
@@ -60,9 +69,14 @@ self.addEventListener("fetch", function(evt) {
         return;
     }
     evt.respondWith(
-        caches.open(CACHE_NAME).then((cache) => {
-            return cache.match(evt.request).then((response) => {
-                return response || fetch(evt.request);
+        fetch(evt.request).catch(function() {
+            return caches.match(evt.request).then(function(response) {
+                if (response) {
+                    return response;
+                } else if (evt.request.headers.get("accept").includes("text/html")) {
+                    // return the cached home page for all requests for html pages
+                    return caches.match("/");
+                }
             });
         })
     );
