@@ -1,39 +1,28 @@
 const FILES_TO_CACHE = [
     "/",
     "/index.html",
-    "/index.js",
+    "index.js",
     "/db.js",
-    "/manifest.json",
-    "/styles.css",
-    "/favicon.ico",
-    "/icons/icon-96x96.png",
-    "/icons/icon-128x128.png",
-    "/icons/icon-192x192.png",
-    "/icons/icon-256x256.png",
-    "/icons/icon-384x384.png",
-    "/icons/icon-512x512.png"
+    "/styles.css"
 ];
 
-const CACHE_NAME = "static-cache-v1";
+const CACHE_NAME = "static-cache-v2";
 const DATA_CACHE_NAME = "data-cache-v1";
 
-// Install
-self.addEventListener("install", evt => {
+// install
+self.addEventListener("install", function(evt) {
     evt.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            console.log("Your files were successfully pre-cached.");
-            return cache.addAll(FILES_TO_CACHE).then((result) => {
-                    console.log("Add all result", result);
-                })
-                .catch((err) => {
-                    console.log("Error: ", err);
-                });
-        }));
+            console.log("Your files were pre-cached successfully!");
+            return cache.addAll(FILES_TO_CACHE);
+        })
+    );
+
     self.skipWaiting();
 });
 
-// Activate
-self.addEventListener("activate", evt => {
+// activate
+self.addEventListener("activate", function(evt) {
     evt.waitUntil(
         caches.keys().then(keyList => {
             return Promise.all(
@@ -46,28 +35,34 @@ self.addEventListener("activate", evt => {
             );
         })
     );
-    self.ClientRectList.claim();
-})
 
-// Fetch files
+    self.clients.claim();
+});
+
+// fetch
 self.addEventListener("fetch", function(evt) {
     if (evt.request.url.includes("/api/")) {
         evt.respondWith(
-            caches.open(DATA_CACHE_NAME).then((cache) => {
-                return fetch(evt.request).then((response) => {
+            caches.open(DATA_CACHE_NAME).then(cache => {
+                return fetch(evt.request)
+                    .then(response => {
+                        // If the response was good, clone it and store it in the cache.
                         if (response.status === 200) {
                             cache.put(evt.request.url, response.clone());
                         }
+
                         return response;
                     })
-                    .catch((err) => {
+                    .catch(err => {
+                        // Network request failed, try to get it from the cache.
                         return cache.match(evt.request);
                     });
-            })
-            .catch((err) => console.log(err))
+            }).catch(err => console.log(err))
         );
+
         return;
     }
+
     evt.respondWith(
         fetch(evt.request).catch(function() {
             return caches.match(evt.request).then(function(response) {

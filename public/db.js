@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 let db;
 // New db request for a "budget" database
 const request = indexedDB.open("budget", 1);
@@ -28,10 +26,10 @@ request.onerror = function(event) {
 // Save a new record
 function saveRecord(record) {
     // Create a new, pending transaction in DB with rewrite access
-    const transaction = db.transaction(["pending"], "rewrite");
+    const transaction = db.transaction(["pending"], "readwrite");
 
     // Access pending object store
-    const store = transaction.createObjectStore("pending");
+    const store = transaction.objectStore("pending");
 
     // Add record to store
     store.add(record);
@@ -40,10 +38,10 @@ function saveRecord(record) {
 //Check database for pending transactions & access JSON data
 function checkDatabase() {
     // Open transaction on pending DB
-    const transaction = db.transaction(["pending"], "rewrite");
+    const transaction = db.transaction(["pending"], "readwrite");
 
     // Access pending object store
-    const store = transaction.createObjectStore("pending");
+    const store = transaction.objectStore("pending");
 
     // Get all pending records
     const getAll = store.getAll();
@@ -62,10 +60,10 @@ function checkDatabase() {
                 .then(response => response.json())
                 .then(() => {
                     // If sucessful, a new transaction will open as pending
-                    const transaction = db.transaction(["pending"], "rewrite");
+                    const transaction = db.transaction(["pending"], "readwrite");
 
                     //Acces pending object store
-                    const store = transaction.createObjectStore("pending");
+                    const store = transaction.objectStore("pending");
 
                     // Clear all items
                     store.clear();
