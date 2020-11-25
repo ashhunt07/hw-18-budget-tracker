@@ -1,8 +1,10 @@
 # Unit 18 PWA Homework: Online/Offline Budget Trackers
 
-Add functionality to our existing Budget Tracker application to allow for offline access and functionality.
+A Budget Tracker application to allow for offline access and functionality to keep track of your spending anywhere! Users are able to add expenses and deposits to their budget with or without an internet connection, their budget sheet will still populate and then sync when they are back online
 
-The user will be able to add expenses and deposits to their budget with or without a connection. When entering transactions offline, they should populate the total when brought back online.
+GIVEN a user is on Budget App without an internet connection
+WHEN the user inputs a withdrawal or deposit
+THEN that will be shown on the page, and added to their transaction history when their connection is back online.
 
 Offline Functionality:
 
@@ -14,48 +16,48 @@ When brought back online:
 
   * Offline entries should be added to tracker.
 
-## User Story
-AS AN avid traveller
-I WANT to be able to track my withdrawals and deposits with or without a data/internet connection
-SO THAT my account balance is accurate when I am traveling
+- - -
 
-## Business Context
+## Overview
 
 Giving users a fast and easy way to track their money is important, but allowing them to access that information anytime is even more important. Having offline functionality is paramount to our applications success.
 
+[Live Application](https://shielded-scrubland-93441.herokuapp.com/)
 
-## Acceptance Criteria
-GIVEN a user is on Budget App without an internet connection
-WHEN the user inputs a withdrawal or deposit
-THEN that will be shown on the page, and added to their transaction history when their connection is back online.
+![Database Example](assets/budget_screen-shot.png)
 
 - - -
 
-## Commit Early and Often
+## Initial Installation
+Copy the repo with complted code and information. Once on your local machine use the following command in your terminal:
 
-* One of the most important skills to master as a web developer is version control. Building the habit of committing via Git is important for two reasons:
+```
+npm install 
+```
+- with no paramerters will just be sure you pull down dependancies listed in the json file
+- only run if there are existing dependancies in the json file
 
-1. Your commit history is a signal to employers that you are actively working on projects and learning new skills
+All dependanies are listed within the package.json file so they will install automatically. If you run into any missed dependancies or want to add some of your own custom code use the following command: 
+```
+npm install (package name)
+```
+- run for other dependancies
+- Just add in each package with the name of the package
 
-2. Your commit history allows you to revert your code base in the event that you need to return to a previous state
+- - -
 
-* Follow these guidelines for committing:
+## Creating Live Applicaition
+To send live, you will need to create a MongoDB Atlas account and connect a batabase from there to your application. Once you have your Atlas account you will connect this to Heroku.
 
-  * Make single purpose commits for related changes to ensure a clean, manageable history. If you are fixing two issues, make two commits
+- - -
 
-  * Write descriptive, meaningful commit messages so that you and anyone else looking at your repository can easily understand its history
+## Hosting on Heroku
 
-  * Don't commit half done work, for the sake of your collaborators (and your future self!)
+The app is hosted by Heroku and can be viewed here: [Live Application](https://shielded-scrubland-93441.herokuapp.com/)
 
-  * Test your application before you commit to ensure functionality at every step in the development process
+- - -
 
-* We would like you to have well over 200 commits by graduation, so commit early and often!
-
-## Submission on BCS
-
-* You are required to submit the following:
-
-  * the URL to the deployed application
-
-  * the URL to the Github repository
-
+#### Contributor
+##### Ashley Hunt
+##### * [GitHub](https://github.com/ashhunt07)
+##### * [Contact](https://ashhunt07.github.io/portfolio/contact.html)
