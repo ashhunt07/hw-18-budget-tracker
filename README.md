@@ -18,7 +18,7 @@ When brought back online:
 
 - - -
 
-## Overview
+### Overview
 
 Giving users a fast and easy way to track their money is important, but allowing them to access that information anytime is even more important. Having offline functionality is paramount to our applications success.
 
@@ -28,7 +28,7 @@ Giving users a fast and easy way to track their money is important, but allowing
 
 - - -
 
-## Initial Installation
+### Initial Installation
 Copy the repo with complted code and information. Once on your local machine use the following command in your terminal:
 
 ```
@@ -46,12 +46,12 @@ npm install (package name)
 
 - - -
 
-## Creating Live Applicaition
+### Creating Live Applicaition
 To send live, you will need to create a MongoDB Atlas account and connect a batabase from there to your application. Once you have your Atlas account you will connect this to Heroku.
 
 - - -
 
-## Hosting on Heroku
+### Hosting on Heroku
 
 The app is hosted by Heroku and can be viewed here: [Live Application](https://shielded-scrubland-93441.herokuapp.com/)
 
